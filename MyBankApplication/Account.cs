@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace MyBankApplication
         private decimal balance;
         #endregion
 
-        // Static - memory for all instances to use. We use static when we want to share instancecs
         #region Static
-        private static int lastId = 0;
+        // Static - memory for all instances to use. We use static when we want to share instancecs
+     //   private static int lastId = 0;
         #endregion
 
         #region Properties
@@ -24,6 +25,7 @@ namespace MyBankApplication
         /// <summary>
         /// Account Id
         /// </summary>
+        [Key]
         public int Id { get; private set; }
 
         /// <summary>
@@ -49,6 +51,7 @@ namespace MyBankApplication
             }
         }
 
+        public virtual Customer Customer { get; set; }
         #endregion
 
         #region Constructor
@@ -57,7 +60,7 @@ namespace MyBankApplication
             // lastId = lastid + 1;
             //lastId++ -> Post increment
             //++lastId -> Pre increment
-            Id = ++lastId;
+         //   Id = ++lastId;  
         }
 
         #endregion
