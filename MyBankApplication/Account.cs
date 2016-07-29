@@ -51,6 +51,7 @@ namespace MyBankApplication
             }
         }
 
+        public AccountTypes TypeOfAccount { get; set; }
         public virtual Customer Customer { get; set; }
         #endregion
 

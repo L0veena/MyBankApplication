@@ -22,6 +22,7 @@ namespace MyBankApplication
         /// <summary>
         /// Customer Name
         /// </summary>
+      //  [StringLength(250)]
         public string Name { get; set; }
         /// <summary>
         /// Customer EmailAddress

@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace MyBankApplication
 {
-   public static class Bank
+
+    public enum AccountTypes
+    {
+        Checking = 1,
+        Savings = 2,
+        CD = 4,
+        Loan = 8
+    }
+
+    public static class Bank
    {
+      
 
         #region Properties
         public static string Name { get; set; }
@@ -22,9 +32,44 @@ namespace MyBankApplication
                 EmailAddress = emailAddress,
                 Address = address
                 };
+
+            var db = new BankModel();
+            db.Customers.Add(customer);
+            db.SaveChanges();
+            db.Dispose();
+            
+
+            CreateAccount("Default Checking Account", AccountTypes.Checking, customer);
+
             return customer;
         }
 
+        public static Account CreateAccount(string accountName, AccountTypes typeOfAccount, Customer customer)
+        {
+            var acccount = new Account
+            {
+                Name = accountName,
+                TypeOfAccount = typeOfAccount,
+                Customer = customer
+            };
+
+            var db = new BankModel();
+            db.Accounts.Add(acccount);
+            db.SaveChanges();
+            db.Dispose();
+
+            return acccount;
+        }
+
+        public static IEnumerable<Account> GetAllAccountsByCustomerEmail(string emailAddress)
+        {
+            var db = new BankModel();
+            var customer  = db.Customers.Where(c => c.EmailAddress == emailAddress).FirstOrDefault();
+            if (customer == null)
+                return null;
+            return db.Accounts.Where(a => a.Customer.Id == customer.Id);
+            
+        }
         #endregion
     }
 }

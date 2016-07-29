@@ -30,6 +30,12 @@ namespace MyBankApplication
 
 
             var c1 = Bank.CreateCustomer("Loveena", "t@test.com", "123 Main St");
+
+            var accounts = Bank.GetAllAccountsByCustomerEmail("t@test.com");
+            foreach (var account in accounts)
+            {
+                Console.WriteLine(account.Balance);
+            }
         }
     }
 }
